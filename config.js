@@ -1,5 +1,4 @@
 window.WAOULA_CONFIG = Object.freeze({
-  supabaseUrl: "URL_SUPABASE",
-  supabaseAnonKey: "CLE_PUBLIQUE_SUPABASE",
-  paypalClientId: "CLIENT_ID_PAYPAL_LIVE"
+  supabaseUrl: "https://waugjqmkrigwkiqssbpz.supabase.co",
+  supabaseAnonKey: "sb_publishable_319w--u0wMl-gwtV8zp9cQ_58s3vUhg"
 });
