@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Administration WAOULA V5</title>
+<style>
+:root{--ink:#111;--muted:#6b7280;--bg:#f3f4f6;--card:#fff;--accent:#111;--danger:#991b1b;--ok:#166534}*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,textarea,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}.top{position:sticky;top:0;z-index:20;background:#050505;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}.top h1{font-size:18px;margin:0}.status{font-size:12px;color:#bbb;margin-top:4px}.btn{border:0;padding:10px 14px;font-weight:800;background:#ddd;color:#111;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.primary{background:#111;color:#fff}.danger{background:var(--danger);color:#fff}.secondary{background:#fff;border:1px solid #bbb}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.login{min-height:100vh;display:grid;place-items:center;padding:20px}.card{background:var(--card);border:1px solid #ddd;padding:20px}.login .card{width:min(440px,100%)}.tabs{max-width:1320px;margin:18px auto 0;padding:0 18px;display:flex;gap:8px;flex-wrap:wrap}.tab.active{background:#111;color:#fff}.panel{max-width:1320px;margin:auto;padding:18px}.grid{display:grid;grid-template-columns:350px 1fr;gap:18px}.field{margin-bottom:13px}.field label{display:block;font-size:12px;font-weight:800;text-transform:uppercase;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;padding:11px;border:1px solid #bbb;background:#fff}.field textarea{min-height:105px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.wide{grid-column:1/-1}.section-title{text-transform:uppercase;margin:0 0 15px}.list{display:grid;gap:8px;max-height:70vh;overflow:auto}.item{display:grid;grid-template-columns:58px 1fr auto;gap:10px;align-items:center;border:1px solid #ddd;padding:8px}.item img{width:58px;height:58px;object-fit:cover;background:#eee}.item small{display:block;color:var(--muted);margin-top:4px}.msg{padding:11px;margin:10px 0;background:#eee}.error{background:#fee2e2;color:#7f1d1d}.ok{background:#dcfce7;color:var(--ok)}.note{font-size:12px;color:var(--muted);line-height:1.5}.preview{width:140px;height:110px;object-fit:cover;background:#eee;margin-top:7px}.gallery-preview,.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:10px}.media-card,.gallery-card{border:1px solid #ddd;background:#fafafa;padding:7px;position:relative}.media-card img,.media-card video,.gallery-card img{width:100%;height:105px;object-fit:cover;background:#eee}.media-card .name{font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:6px 0}.media-actions{display:flex;gap:5px;flex-wrap:wrap}.media-actions button{font-size:11px;padding:6px}.remove{position:absolute;right:3px;top:3px;width:27px;height:27px;background:var(--danger);color:#fff;border:0}.rich-toolbar{display:flex;gap:5px;flex-wrap:wrap;border:1px solid #bbb;border-bottom:0;padding:7px;background:#f4f4f4}.rich-toolbar button{min-width:34px;border:1px solid #bbb;background:#fff;padding:6px}.rich-editor{min-height:180px;border:1px solid #bbb;padding:12px;background:#fff;overflow:auto}.color-row{display:grid;grid-template-columns:1fr 70px;gap:8px}.upload-zone{border:2px dashed #aaa;padding:22px;text-align:center;background:#fafafa}.upload-zone.drag{border-color:#111;background:#eee}.variant-box{border:1px solid #d1d5db;background:#fafafa;padding:12px}.variant-head{display:grid;grid-template-columns:1fr 1fr 120px 1fr 95px 95px;gap:8px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--muted);margin-bottom:7px}.variant-row{display:grid;grid-template-columns:1fr 1fr 120px 1fr 95px 95px;gap:8px;align-items:center;margin-bottom:8px}.variant-row input[type="text"],.variant-row input[type="number"]{width:100%;padding:9px;border:1px solid #bbb;background:#fff}.variant-row .variant-active{display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px}.variant-summary{margin:8px 0 12px;font-size:12px;color:var(--muted)}@media(max-width:900px){.variant-head{display:none}.variant-row{grid-template-columns:1fr 1fr}.variant-row>*:nth-child(3),.variant-row>*:nth-child(4),.variant-row>*:nth-child(5),.variant-row>*:nth-child(6){grid-column:auto}}@media(max-width:900px){.grid{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.wide{grid-column:auto}}
+</style></head><body>
+<section id="loginView" class="login"><div class="card"><h2>Administration WAOULA</h2><div id="loginMsg"></div><form id="loginForm"><div class="field"><label>E-mail</label><input id="email" type="email" required></div><div class="field"><label>Mot de passe</label><input id="password" type="password" required></div><div class="toolbar"><button class="btn primary">Se connecter</button><button id="resetPassword" class="btn secondary" type="button">Mot de passe oublié</button></div></form></div></section>
+<section id="appView" class="hidden"><header class="top"><div><h1>WAOULA · CMS V9</h1><div id="userStatus" class="status"></div></div><div class="toolbar"><a class="btn secondary" href="./" target="_blank">Voir la boutique</a><button id="logout" class="btn">Déconnexion</button></div></header>
+<div class="tabs"><button class="btn tab active" data-tab="productsPanel">Produits</button><button class="btn tab" data-tab="contentPanel">Site & apparence</button><button class="btn tab" data-tab="legalPanel">Pages légales</button><button class="btn tab" data-tab="mediaPanel">Médias</button><button class="btn tab" data-tab="ordersPanel">Commandes</button></div>
+<section id="productsPanel" class="panel"><div class="grid"><aside class="card"><h3 class="section-title">Catalogue</h3><div class="toolbar"><button id="newBtn" class="btn primary">+ Nouveau</button><button id="refreshBtn" class="btn secondary">Actualiser</button><button id="importDefaultsBtn" class="btn secondary">Importer les 4 produits</button><button id="deleteAllBtn" class="btn danger">Supprimer tous</button></div><div id="productList" class="list"></div></aside><main class="card"><h3 id="formTitle" class="section-title">Ajouter un produit</h3><div id="formMsg"></div><form id="productForm" class="formgrid"><input id="productId" type="hidden"><div class="field"><label>Nom</label><input id="name" required></div><div class="field"><label>Catégorie</label><input id="category"></div><div class="field"><label>SKU</label><input id="sku"></div><div class="field"><label>Stock total (calculé)</label><input id="stock" type="number" min="0" value="0" readonly><p class="note">Somme automatique de tous les stocks par variante.</p></div><div class="field"><label>Prix normal (€)</label><input id="price" type="number" step=".01" min="0" required></div><div class="field"><label>Prix promo (€)</label><input id="salePrice" type="number" step=".01" min="0"></div><div class="field wide"><label>Description</label><textarea id="description"></textarea></div><div class="field"><label>Tailles (calculées)</label><input id="sizes" readonly placeholder="S, M, L, XL"></div><div class="field"><label>Couleurs (calculées)</label><input id="colors" readonly placeholder="Noir, Blanc"></div><div class="field wide"><label>Stock par taille / couleur</label><div class="variant-box"><div class="variant-head"><span>Taille</span><span>Couleur</span><span>Stock</span><span>SKU</span><span>Active</span><span>Action</span></div><div id="variantRows"></div><div id="variantSummary" class="variant-summary"></div><button id="addVariantBtn" class="btn secondary" type="button">+ Ajouter une variante</button></div><p class="note">Exemple : S / Noir / 15. À 0, la variante reste visible dans l’administration mais sera affichée « Rupture de stock » sur la boutique. Décoche « Active » pour la retirer volontairement de la vente.</p><textarea id="variants" class="hidden"></textarea></div><div class="field"><label>Ordre</label><input id="position" type="number" value="0"></div><div class="field"><label><input id="active" type="checkbox" checked> Visible</label><label><input id="featured" type="checkbox"> Vedette</label></div><div class="field wide"><label>Image principale</label><input id="mainImage" type="file" accept="image/*"><input id="existingImage" type="hidden"><img id="preview" class="preview hidden"><label style="margin-top:8px"><input id="removeMainImage" type="checkbox"> Retirer l’image principale</label></div><div class="field wide"><label>Galerie (sélection multiple)</label><input id="galleryImages" type="file" accept="image/*" multiple><div id="galleryPreview" class="gallery-preview"></div></div><div class="wide toolbar"><button class="btn primary">Enregistrer</button><button id="resetBtn" class="btn secondary" type="button">Vider</button><button id="deleteBtn" class="btn danger hidden" type="button">Supprimer</button></div></form></main></div></section>
+<section id="contentPanel" class="panel hidden"><div class="card"><h3 class="section-title">Site, images et apparence</h3><div id="settingsMsg"></div><form id="settingsForm" class="formgrid"><div class="wide"><h4>Identité</h4></div><div class="field"><label>Nom boutique</label><input id="shopName"></div><div class="field"><label>Slogan</label><input id="slogan"></div><div class="field"><label>Logo</label><input id="logoFile" type="file" accept="image/*"><img id="logoPreview" class="preview hidden"><label style="margin-top:8px"><input id="removeLogo" type="checkbox"> Retirer le logo du site</label></div><div class="field"><label>Favicon</label><input id="faviconFile" type="file" accept="image/*"><img id="faviconPreview" class="preview hidden"><label style="margin-top:8px"><input id="removeFavicon" type="checkbox"> Retirer le favicon</label></div><div class="wide"><h4>Accueil</h4></div><div class="field"><label>Petit titre</label><input id="heroEyebrow"></div><div class="field wide"><label>Grand titre</label><textarea id="heroTitle"></textarea></div><div class="field wide"><label>Texte</label><textarea id="heroText"></textarea></div><div class="field"><label>Bouton</label><input id="heroButton"></div><div class="field"><label>Vidéo ou image principale</label><input id="heroMedia" type="file" accept="image/*,video/mp4,video/webm"><label style="margin-top:8px"><input id="removeHeroMedia" type="checkbox"> Retirer l’image ou la vidéo principale</label></div><div class="field"><label>Image d’attente de la vidéo (poster)</label><input id="heroPoster" type="file" accept="image/*"><label style="margin-top:8px"><input id="removeHeroPoster" type="checkbox"> Retirer l’image d’attente</label></div><div class="wide"><h4>Collection</h4></div><div class="field"><label>Petit titre</label><input id="collectionEyebrow"></div><div class="field wide"><label>Grand titre</label><textarea id="collectionTitle"></textarea></div><div class="field wide"><label>Texte</label><textarea id="collectionText"></textarea></div><div class="wide"><h4>Boutique</h4></div><div class="field wide"><label><input id="showStock" type="checkbox" checked> Afficher le stock sur les fiches produits</label><p class="note">Le stock se gère désormais par taille/couleur dans chaque produit. Le stock total est calculé automatiquement. Une variante à 0 sera affichée « Rupture de stock » côté boutique.</p></div><div class="field"><label>Petit titre</label><input id="shopEyebrow"></div><div class="field"><label>Grand titre</label><input id="shopTitle"></div><div class="wide"><h4>À propos</h4></div><div class="field"><label>Petit titre</label><input id="aboutEyebrow"></div><div class="field wide"><label>Grand titre</label><textarea id="aboutTitle"></textarea></div><div class="field wide"><label>Texte</label><textarea id="aboutText"></textarea></div><div class="field"><label>Bouton</label><input id="aboutButton"></div><div class="field"><label>Image À propos</label><input id="aboutImageFile" type="file" accept="image/*"><img id="aboutPreview" class="preview hidden"><label style="margin-top:8px"><input id="removeAboutImage" type="checkbox"> Retirer l’image À propos</label></div><div class="wide"><h4>Avantages</h4></div><div class="field"><label>Avantage 1 — titre</label><input id="benefit1Title"></div><div class="field"><label>Avantage 1 — texte</label><input id="benefit1Text"></div><div class="field"><label>Avantage 2 — titre</label><input id="benefit2Title"></div><div class="field"><label>Avantage 2 — texte</label><input id="benefit2Text"></div><div class="field"><label>Avantage 3 — titre</label><input id="benefit3Title"></div><div class="field"><label>Avantage 3 — texte</label><input id="benefit3Text"></div><div class="field"><label>Avantage 4 — titre</label><input id="benefit4Title"></div><div class="field"><label>Avantage 4 — texte</label><input id="benefit4Text"></div><div class="wide"><h4>Coordonnées</h4></div><div class="field"><label>E-mail</label><input id="contactEmail" type="email"></div><div class="field"><label>Téléphone</label><input id="phone"></div><div class="field"><label>WhatsApp</label><input id="whatsapp"></div><div class="field"><label>Adresse</label><input id="address"></div><div class="field"><label>Instagram</label><input id="instagram"></div><div class="field"><label>Facebook</label><input id="facebook"></div><div class="field"><label>TikTok</label><input id="tiktok"></div><div class="field"><label>Texte contact</label><input id="contactExtra"></div><div class="field"><label>Lien Stripe</label><input id="stripeLink"></div><div class="field"><label>Lien PayPal</label><input id="paypalLink"></div><div class="wide"><h4>Apparence</h4></div><div class="field"><label>Couleur principale</label><div class="color-row"><input id="primaryColor" value="#d2b36f"><input id="primaryColorPicker" type="color" value="#d2b36f"></div></div><div class="field"><label>Couleur secondaire</label><div class="color-row"><input id="secondaryColor" value="#9b7a35"><input id="secondaryColorPicker" type="color" value="#9b7a35"></div></div><div class="field"><label>Fond général</label><div class="color-row"><input id="backgroundColor" value="#ffffff"><input id="backgroundColorPicker" type="color" value="#ffffff"></div></div><div class="field"><label>Couleur texte</label><div class="color-row"><input id="textColor" value="#080808"><input id="textColorPicker" type="color" value="#080808"></div></div><div class="field wide"><label>Police CSS</label><input id="fontFamily" placeholder="Arial, Helvetica, sans-serif"></div><div class="wide toolbar"><button class="btn primary">Enregistrer le site</button></div></form></div></section>
+<section id="legalPanel" class="panel hidden"><div class="card"><h3 class="section-title">Pages légales modifiables</h3><div id="legalMsg"></div><p class="note">Tu peux ajouter des titres, du gras, des listes et des liens. Les contenus sont affichés dans les fenêtres légales de la boutique.</p><form id="legalForm"><div id="legalEditors"></div><button class="btn primary">Enregistrer les pages légales</button></form></div></section>
+<section id="mediaPanel" class="panel hidden"><div class="card"><h3 class="section-title">Bibliothèque de médias</h3><div id="mediaMsg"></div><div id="dropZone" class="upload-zone"><strong>Glisse plusieurs images ou vidéos ici</strong><br><span class="note">ou clique pour sélectionner</span><input id="mediaFiles" class="hidden" type="file" accept="image/*,video/mp4,video/webm" multiple></div><div class="toolbar" style="margin-top:12px"><button id="uploadMediaBtn" class="btn primary">Téléverser la sélection</button><button id="refreshMediaBtn" class="btn secondary">Actualiser</button></div><div id="mediaGrid" class="media-grid"></div></div></section>
+</section>
+<section id="ordersPanel" class="panel hidden"><div class="card"><div class="toolbar"><h3 class="section-title" style="margin:0">Commandes Stripe & PayPal</h3><button class="btn secondary" id="refreshOrders" type="button">Actualiser</button></div><div id="ordersMsg"></div><div style="overflow:auto"><table style="width:100%;border-collapse:collapse" id="ordersTable"><thead><tr><th style="text-align:left;padding:10px;border-bottom:1px solid #ddd">Date</th><th style="text-align:left;padding:10px;border-bottom:1px solid #ddd">Commande</th><th style="text-align:left;padding:10px;border-bottom:1px solid #ddd">Client</th><th style="text-align:left;padding:10px;border-bottom:1px solid #ddd">Montant</th><th style="text-align:left;padding:10px;border-bottom:1px solid #ddd">Paiement</th></tr></thead><tbody></tbody></table></div></div></section><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js?v=6"></script><script>
+const $=id=>document.getElementById(id);const configured=window.WAOULA_CONFIG&&WAOULA_CONFIG.supabaseUrl&&!WAOULA_CONFIG.supabaseUrl.includes('VOTRE_')&&WAOULA_CONFIG.supabaseAnonKey&&!WAOULA_CONFIG.supabaseAnonKey.includes('VOTRE_');let sb,products=[],settings={},gallery=[],pendingGallery=[],mediaSelection=[],currentVariants=[];const split=v=>v.split(',').map(x=>x.trim()).filter(Boolean);const safe=n=>n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9.]+/g,'-');const msg=(id,t,c='')=>$(id).innerHTML=t?`<div class="msg ${c}">${t}</div>`:'';
+async function upload(file){if(!file)return null;if(file.size>20*1024*1024)throw Error('Fichier trop lourd : 20 Mo maximum.');const path=`${Date.now()}-${crypto.randomUUID()}-${safe(file.name)}`;const r=await sb.storage.from('site-assets').upload(path,file,{upsert:false});if(r.error)throw r.error;return sb.storage.from('site-assets').getPublicUrl(path).data.publicUrl}
+function escAttr(v){return String(v??'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function legacyVariants(){return currentVariants.map(v=>({color:v.color||'',size:v.size||'',stock:Number(v.stock)||0,sku:v.sku||''}))}
+function syncVariantDerivedFields(){
+  const total=currentVariants.reduce((sum,v)=>sum+Math.max(0,Number(v.stock)||0),0);
+  const sizes=[...new Set(currentVariants.map(v=>String(v.size||'').trim()).filter(Boolean))];
+  const colors=[...new Set(currentVariants.map(v=>String(v.color||'').trim()).filter(Boolean))];
+  $('stock').value=total;
+  $('sizes').value=sizes.join(', ');
+  $('colors').value=colors.join(', ');
+  $('variants').value=legacyVariants().map(v=>`${v.color} | ${v.size} | ${v.stock} | ${v.sku}`).join('\n');
+  $('variantSummary').textContent=`${currentVariants.length} variante(s) · stock total : ${total}`;
+}
+function renderVariantRows(){
+  const box=$('variantRows');
+  if(!currentVariants.length){
+    box.innerHTML='<p class="note">Aucune variante. Ajoute au moins une taille/couleur.</p>';
+    syncVariantDerivedFields();
+    return;
+  }
+  box.innerHTML=currentVariants.map((v,i)=>`<div class="variant-row" data-variant-row="${i}">
+    <input type="text" data-v-size="${i}" value="${escAttr(v.size||'')}" placeholder="S, M, L, Unique">
+    <input type="text" data-v-color="${i}" value="${escAttr(v.color||'')}" placeholder="Noir, Blanc, Standard">
+    <input type="number" min="0" step="1" data-v-stock="${i}" value="${Math.max(0,Number(v.stock)||0)}">
+    <input type="text" data-v-sku="${i}" value="${escAttr(v.sku||'')}" placeholder="SKU">
+    <label class="variant-active"><input type="checkbox" data-v-active="${i}" ${v.active!==false?'checked':''}> Oui</label>
+    <button class="btn ${v.id?'secondary':'danger'}" type="button" data-v-remove="${i}">${v.id?'Retirer vente':'Supprimer'}</button>
+  </div>`).join('');
+  currentVariants.forEach((v,i)=>{
+    const bind=(selector,key,transform=x=>x)=>{
+      const el=document.querySelector(`[${selector}="${i}"]`);
+      if(!el)return;
+      el.oninput=()=>{currentVariants[i][key]=transform(el.value);syncVariantDerivedFields()};
+    };
+    bind('data-v-size','size',x=>x.trim());
+    bind('data-v-color','color',x=>x.trim());
+    bind('data-v-stock','stock',x=>Math.max(0,Math.trunc(Number(x)||0)));
+    bind('data-v-sku','sku',x=>x.trim());
+    const active=document.querySelector(`[data-v-active="${i}"]`);
+    if(active)active.onchange=()=>{currentVariants[i].active=active.checked;syncVariantDerivedFields()};
+    const remove=document.querySelector(`[data-v-remove="${i}"]`);
+    if(remove)remove.onclick=()=>{
+      if(v.id){
+        if(!confirm('Retirer cette variante de la vente ? Elle restera conservée pour l’historique des commandes.'))return;
+        currentVariants[i].active=false;
+        renderVariantRows();
+      }else{
+        currentVariants.splice(i,1);
+        renderVariantRows();
+      }
+    };
+  });
+  syncVariantDerivedFields();
+}
+function addVariant(defaults={}){
+  currentVariants.push({
+    id:null,
+    size:defaults.size??'Unique',
+    color:defaults.color??'Standard',
+    stock:Math.max(0,Number(defaults.stock)||0),
+    sku:defaults.sku??'',
+    active:defaults.active!==false
+  });
+  renderVariantRows();
+}
+async function loadProductVariants(product){
+  const r=await sb.from('product_variants').select('id,product_id,size,color,sku,stock,active').eq('product_id',product.id).order('created_at',{ascending:true});
+  if(r.error)throw r.error;
+  currentVariants=(r.data||[]).map(v=>({
+    id:v.id,
+    size:v.size||'',
+    color:v.color||'',
+    stock:Number(v.stock)||0,
+    sku:v.sku||'',
+    active:v.active!==false
+  }));
+  if(!currentVariants.length){
+    const legacy=Array.isArray(product.variants)?product.variants:[];
+    if(legacy.length){
+      currentVariants=legacy.map(v=>({id:null,size:v.size||'Unique',color:v.color||'Standard',stock:Number(v.stock)||0,sku:v.sku||'',active:true}));
+    }else{
+      currentVariants=[{id:null,size:(product.sizes||[])[0]||'Unique',color:(product.colors||[])[0]||'Standard',stock:Number(product.stock)||0,sku:product.sku||'',active:true}];
+    }
+  }
+  renderVariantRows();
+}
+async function saveProductVariants(productId){
+  if(!currentVariants.length)throw Error('Ajoute au moins une variante.');
+  const normalized=currentVariants.map((v,i)=>({
+    ...v,
+    size:String(v.size||'').trim(),
+    color:String(v.color||'').trim(),
+    sku:String(v.sku||'').trim(),
+    stock:Math.max(0,Math.trunc(Number(v.stock)||0)),
+    active:v.active!==false,
+    _index:i
+  }));
+  for(const v of normalized){
+    if(!v.size)throw Error(`Taille manquante pour la variante ${v._index+1}.`);
+    if(!v.color)throw Error(`Couleur manquante pour la variante ${v._index+1}.`);
+  }
+  const seen=new Set();
+  for(const v of normalized){
+    const key=`${v.size.toLowerCase()}||${v.color.toLowerCase()}`;
+    if(seen.has(key))throw Error(`Variante en double : ${v.size} / ${v.color}.`);
+    seen.add(key);
+  }
+  for(const v of normalized){
+    const row={product_id:productId,size:v.size,color:v.color,sku:v.sku||null,stock:v.stock,active:v.active,updated_at:new Date().toISOString()};
+    if(v.id){
+      const r=await sb.from('product_variants').update(row).eq('id',v.id);
+      if(r.error)throw r.error;
+    }else{
+      const r=await sb.from('product_variants').insert(row).select('id').single();
+      if(r.error)throw r.error;
+      v.id=r.data.id;
+    }
+  }
+  currentVariants=normalized.map(({_index,...v})=>v);
+  const stock=currentVariants.reduce((sum,v)=>sum+v.stock,0);
+  const sizes=[...new Set(currentVariants.map(v=>v.size).filter(Boolean))];
+  const colors=[...new Set(currentVariants.map(v=>v.color).filter(Boolean))];
+  const mirror=currentVariants.map(v=>({color:v.color,size:v.size,stock:v.stock,sku:v.sku||''}));
+  const sync=await sb.from('products').update({stock,sizes,colors,variants:mirror,updated_at:new Date().toISOString()}).eq('id',productId);
+  if(sync.error)throw sync.error;
+  syncVariantDerivedFields();
+}
+$('addVariantBtn').onclick=()=>addVariant({size:'Unique',color:'Standard',stock:0,sku:''});
+function renderGallery(){const old=gallery.map((u,i)=>`<div class="gallery-card"><img src="${u}"><button class="remove" type="button" data-old="${i}">×</button></div>`);const fresh=pendingGallery.map((f,i)=>`<div class="gallery-card"><img src="${URL.createObjectURL(f)}"><button class="remove" type="button" data-new="${i}">×</button></div>`);$('galleryPreview').innerHTML=old.concat(fresh).join('');document.querySelectorAll('[data-old]').forEach(b=>b.onclick=()=>{gallery.splice(+b.dataset.old,1);renderGallery()});document.querySelectorAll('[data-new]').forEach(b=>b.onclick=()=>{pendingGallery.splice(+b.dataset.new,1);renderGallery()})}
+function resetProduct(){gallery=[];pendingGallery=[];currentVariants=[];$('productForm').reset();$('productId').value='';$('active').checked=true;$('position').value=0;$('stock').value=0;$('sizes').value='';$('colors').value='';$('existingImage').value='';$('removeMainImage').checked=false;$('preview').classList.add('hidden');$('deleteBtn').classList.add('hidden');$('formTitle').textContent='Ajouter un produit';renderGallery();addVariant({size:'Unique',color:'Standard',stock:0,sku:''});msg('formMsg','')}
+async function loadProducts(){const r=await sb.from('products').select('*').order('position').order('created_at',{ascending:false});if(r.error)return msg('formMsg',r.error.message,'error');products=r.data||[];$('productList').innerHTML=products.length?products.map(p=>`<div class="item"><img src="${p.image_url||''}"><div><strong>${p.name}</strong><small>${Number(p.sale_price||p.price).toFixed(2)} € · Stock variantes : ${Number(p.stock||0)} · ${p.active?'visible':'masqué'}</small></div><button class="btn secondary" data-edit="${p.id}">Modifier</button></div>`).join(''):'<p class="note">Aucun produit.</p>';document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editProduct(b.dataset.edit))}
+async function editProduct(id){const p=products.find(x=>x.id===id);if(!p)return;msg('formMsg','Chargement des variantes…');const map={productId:p.id,name:p.name,category:p.category||'',sku:p.sku||'',stock:p.stock||0,price:p.price,salePrice:p.sale_price??'',description:p.description||'',sizes:(p.sizes||[]).join(', '),colors:(p.colors||[]).join(', '),position:p.position||0,existingImage:p.image_url||''};Object.entries(map).forEach(([k,v])=>$(k).value=v);$('active').checked=!!p.active;$('featured').checked=!!p.featured;gallery=[...(p.gallery||[])];pendingGallery=[];$('removeMainImage').checked=false;if(p.image_url){$('preview').src=p.image_url;$('preview').classList.remove('hidden')}else{$('preview').classList.add('hidden')}renderGallery();$('deleteBtn').classList.remove('hidden');$('formTitle').textContent='Modifier le produit';try{await loadProductVariants(p);msg('formMsg','Variantes chargées.','ok')}catch(x){msg('formMsg','Erreur variantes : '+x.message,'error')}scrollTo({top:0,behavior:'smooth'})}
+$('productForm').onsubmit=async e=>{e.preventDefault();msg('formMsg','Enregistrement du produit et des stocks…');try{
+  if(!currentVariants.length)throw Error('Ajoute au moins une variante.');
+  let image=$('existingImage').value;
+  if($('removeMainImage').checked)image='';
+  if($('mainImage').files[0])image=await upload($('mainImage').files[0]);
+  for(const f of pendingGallery)gallery.push(await upload(f));
+  gallery=image?[image,...gallery.filter(x=>x&&x!==image)]:gallery.filter(Boolean);
+  const sale=$('salePrice').value.trim();
+  const totalStock=currentVariants.reduce((sum,v)=>sum+Math.max(0,Math.trunc(Number(v.stock)||0)),0);
+  const sizes=[...new Set(currentVariants.map(v=>String(v.size||'').trim()).filter(Boolean))];
+  const colors=[...new Set(currentVariants.map(v=>String(v.color||'').trim()).filter(Boolean))];
+  const row={
+    name:$('name').value.trim(),
+    category:$('category').value.trim(),
+    sku:$('sku').value.trim(),
+    stock:totalStock,
+    price:Number($('price').value),
+    sale_price:sale===''?null:Number(sale),
+    description:$('description').value.trim(),
+    sizes:sizes.length?sizes:['Unique'],
+    colors:colors.length?colors:['Standard'],
+    variants:legacyVariants(),
+    image_url:image,
+    gallery,
+    featured:$('featured').checked,
+    position:Number($('position').value)||0,
+    active:$('active').checked,
+    updated_at:new Date().toISOString()
+  };
+  let id=$('productId').value;
+  if(id){
+    const r=await sb.from('products').update(row).eq('id',id);
+    if(r.error)throw r.error;
+  }else{
+    const r=await sb.from('products').insert(row).select('id').single();
+    if(r.error)throw r.error;
+    id=r.data.id;
+    $('productId').value=id;
+  }
+  await saveProductVariants(id);
+  msg('formMsg','Produit et stocks par variante enregistrés.','ok');
+  resetProduct();
+  await loadProducts();
+}catch(x){msg('formMsg',x.message,'error')}};
+$('deleteBtn').onclick=async()=>{const id=$('productId').value;if(!id||!confirm('Supprimer définitivement ce produit ?'))return;const r=await sb.from('products').delete().eq('id',id);if(r.error)return msg('formMsg',r.error.message,'error');resetProduct();loadProducts()};$('mainImage').onchange=e=>{if(e.target.files[0]){$('preview').src=URL.createObjectURL(e.target.files[0]);$('preview').classList.remove('hidden')}};$('galleryImages').onchange=e=>{pendingGallery.push(...e.target.files);e.target.value='';renderGallery()};$('newBtn').onclick=$('resetBtn').onclick=resetProduct;$('refreshBtn').onclick=loadProducts;
+const defaults=[{name:'Eye Tee',category:'T-shirts',sku:'EYE-TEE',price:39.99,stock:100,description:'T-shirt premium minimaliste avec logo Eye.',sizes:['S','M','L','XL','XXL'],colors:['Noir','Blanc'],variants:[],image_url:'image-03-d9e015ed0f90.png',gallery:['image-03-d9e015ed0f90.png','image-04-a41cb08b7c87.png','image-05-679eeb6bd5b1.png'],featured:true,position:1,active:true},{name:'Bonnet Running',category:'Accessoires',sku:'BONNET-RUN',price:19.99,stock:100,description:'Bonnet running léger et respirant.',sizes:['Unique'],colors:['Noir'],variants:[],image_url:'image-06-624b873a7af4.png',gallery:['image-06-624b873a7af4.png','image-07-2172cef8edd1.png'],position:2,active:true},{name:'Chaussettes Sport WAOULA',category:'Chaussettes',sku:'SOCK-WAOULA',price:9.99,stock:100,description:'Chaussettes sport confort.',sizes:['39-46'],colors:['Blanc'],variants:[],image_url:'image-08-6f9474617da9.png',gallery:['image-08-6f9474617da9.png','image-09-d5401c32acf9.png'],position:3,active:true},{name:'Chaussettes Sport EYE',category:'Chaussettes',sku:'SOCK-EYE',price:9.99,stock:100,description:'Chaussettes sport premium.',sizes:['39-46'],colors:['Blanc'],variants:[],image_url:'image-10-c2eef22c6614.png',gallery:['image-10-c2eef22c6614.png','image-11-37adc76b4d08.png'],position:4,active:true}];$('importDefaultsBtn').onclick=async()=>{const skus=new Set(products.map(p=>p.sku));const rows=defaults.filter(x=>!skus.has(x.sku));if(!rows.length)return msg('formMsg','Produits déjà importés.','ok');const r=await sb.from('products').insert(rows);if(r.error)return msg('formMsg',r.error.message,'error');loadProducts();msg('formMsg','Produits importés.','ok')};$('deleteAllBtn').onclick=async()=>{if(!products.length||!confirm('Supprimer tous les produits ?'))return;const r=await sb.from('products').delete().in('id',products.map(p=>p.id));if(r.error)return msg('formMsg',r.error.message,'error');loadProducts()};
+const settingsMap={shopName:'shop_name',slogan:'slogan',heroEyebrow:'hero_eyebrow',heroTitle:'hero_title',heroText:'hero_text',heroButton:'hero_button',collectionEyebrow:'collection_eyebrow',collectionTitle:'collection_title',collectionText:'collection_text',shopEyebrow:'shop_eyebrow',shopTitle:'shop_title',aboutEyebrow:'about_eyebrow',aboutTitle:'about_title',aboutText:'about_text',aboutButton:'about_button',benefit1Title:'benefit_1_title',benefit1Text:'benefit_1_text',benefit2Title:'benefit_2_title',benefit2Text:'benefit_2_text',benefit3Title:'benefit_3_title',benefit3Text:'benefit_3_text',benefit4Title:'benefit_4_title',benefit4Text:'benefit_4_text',contactEmail:'email',phone:'phone',whatsapp:'whatsapp',instagram:'instagram',facebook:'facebook',tiktok:'tiktok',address:'address',contactExtra:'contact_extra',stripeLink:'stripe_link',paypalLink:'paypal_link',primaryColor:'primary_color',secondaryColor:'secondary_color',backgroundColor:'background_color',textColor:'text_color',fontFamily:'font_family'};
+async function loadSettings(){const r=await sb.from('site_settings').select('*').eq('id',1).single();if(r.error)return msg('settingsMsg',r.error.message,'error');settings=r.data||{};['removeLogo','removeFavicon','removeHeroMedia','removeHeroPoster','removeAboutImage'].forEach(id=>{if($(id))$(id).checked=false});$('showStock').checked=settings.show_stock!==false;Object.entries(settingsMap).forEach(([id,col])=>{if($(id))$(id).value=settings[col]||''});[['logoPreview','logo_url'],['faviconPreview','favicon_url'],['aboutPreview','about_image_url']].forEach(([id,col])=>{if(settings[col]){$(id).src=settings[col];$(id).classList.remove('hidden')}});[['logoPreview','logo_url'],['faviconPreview','favicon_url'],['aboutPreview','about_image_url']].forEach(([id,col])=>{if(!settings[col]&&$(id))$(id).classList.add('hidden')});syncPickers();loadLegalEditors()}
+function syncPickers(){[['primaryColor','primaryColorPicker'],['secondaryColor','secondaryColorPicker'],['backgroundColor','backgroundColorPicker'],['textColor','textColorPicker']].forEach(([a,b])=>{if($(a).value)$(b).value=$(a).value;$(b).oninput=()=>$(a).value=$(b).value;$(a).oninput=()=>{if(/^#[0-9a-f]{6}$/i.test($(a).value))$(b).value=$(a).value}})}
+$('settingsForm').onsubmit=async e=>{e.preventDefault();msg('settingsMsg','Enregistrement…');try{let logo=settings.logo_url||'',favicon=settings.favicon_url||'',hero=settings.hero_media_url||'',poster=settings.hero_poster_url||'',about=settings.about_image_url||'';if($('removeLogo').checked)logo='';if($('removeFavicon').checked)favicon='';if($('removeHeroMedia').checked)hero='';if($('removeHeroPoster').checked)poster='';if($('removeAboutImage').checked)about='';if($('logoFile').files[0])logo=await upload($('logoFile').files[0]);if($('faviconFile').files[0])favicon=await upload($('faviconFile').files[0]);if($('heroMedia').files[0])hero=await upload($('heroMedia').files[0]);if($('heroPoster').files[0])poster=await upload($('heroPoster').files[0]);if($('aboutImageFile').files[0])about=await upload($('aboutImageFile').files[0]);const row={id:1,logo_url:logo,favicon_url:favicon,hero_media_url:hero,hero_poster_url:poster,about_image_url:about,show_stock:$('showStock').checked,updated_at:new Date().toISOString()};Object.entries(settingsMap).forEach(([id,col])=>row[col]=$(id).value.trim());const r=await sb.from('site_settings').upsert(row);if(r.error)throw r.error;settings={...settings,...row};msg('settingsMsg','Site enregistré. Recharge la boutique avec Ctrl+F5.','ok')}catch(x){msg('settingsMsg',x.message,'error')}};
+[['logoFile','logoPreview'],['faviconFile','faviconPreview'],['aboutImageFile','aboutPreview']].forEach(([inp,prev])=>$(inp).onchange=e=>{if(e.target.files[0]){$(prev).src=URL.createObjectURL(e.target.files[0]);$(prev).classList.remove('hidden')}});
+const legalDefs=[['mentions','Mentions légales','legal_mentions'],['cgv','Conditions générales de vente','legal_cgv'],['privacy','Politique de confidentialité','legal_privacy'],['shipping','Livraison et retours','legal_shipping']];function editorBlock(key,title){return `<div class="field"><label>${title}</label><div class="rich-toolbar" data-for="${key}"><button type="button" data-cmd="bold"><b>B</b></button><button type="button" data-cmd="italic"><i>I</i></button><button type="button" data-cmd="formatBlock" data-value="h2">H2</button><button type="button" data-cmd="insertUnorderedList">• Liste</button><button type="button" data-link="1">Lien</button><button type="button" data-cmd="removeFormat">Nettoyer</button></div><div id="editor-${key}" class="rich-editor" contenteditable="true"></div></div>`}$('legalEditors').innerHTML=legalDefs.map(x=>editorBlock(x[0],x[1])).join('');document.querySelectorAll('.rich-toolbar button').forEach(b=>b.onclick=()=>{const ed=$('editor-'+b.closest('.rich-toolbar').dataset.for);ed.focus();if(b.dataset.link){const u=prompt('Adresse du lien :');if(u)document.execCommand('createLink',false,u)}else document.execCommand(b.dataset.cmd,false,b.dataset.value||null)});function loadLegalEditors(){legalDefs.forEach(([k,,col])=>$('editor-'+k).innerHTML=settings[col]||'')}$('legalForm').onsubmit=async e=>{e.preventDefault();const row={id:1,updated_at:new Date().toISOString()};legalDefs.forEach(([k,,col])=>row[col]=$('editor-'+k).innerHTML);const r=await sb.from('site_settings').upsert(row);msg('legalMsg',r.error?r.error.message:'Pages légales enregistrées.',r.error?'error':'ok');if(!r.error)settings={...settings,...row}};
+async function loadMedia(){const r=await sb.storage.from('site-assets').list('',{limit:200,sortBy:{column:'created_at',order:'desc'}});if(r.error)return msg('mediaMsg',r.error.message,'error');const files=(r.data||[]).filter(x=>x.name!=='.emptyFolderPlaceholder');$('mediaGrid').innerHTML=files.map(f=>{const u=sb.storage.from('site-assets').getPublicUrl(f.name).data.publicUrl;const isVideo=/\.(mp4|webm)$/i.test(f.name);return `<div class="media-card">${isVideo?`<video src="${u}" muted controls></video>`:`<img src="${u}">`}<div class="name" title="${f.name}">${f.name}</div><div class="media-actions"><button class="btn secondary" data-copy="${u}">Copier URL</button><button class="btn danger" data-media-delete="${f.name}">Supprimer</button></div></div>`}).join('')||'<p class="note">Aucun média dans Supabase Storage.</p>';document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{await navigator.clipboard.writeText(b.dataset.copy);msg('mediaMsg','URL copiée.','ok')});document.querySelectorAll('[data-media-delete]').forEach(b=>b.onclick=async()=>{if(!confirm('Supprimer ce média du stockage ?'))return;const x=await sb.storage.from('site-assets').remove([b.dataset.mediaDelete]);if(x.error)msg('mediaMsg',x.error.message,'error');else loadMedia()})}
+const dz=$('dropZone');dz.onclick=()=>$('mediaFiles').click();['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('drag')}));['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('drag')}));dz.addEventListener('drop',e=>{mediaSelection=[...e.dataTransfer.files];msg('mediaMsg',mediaSelection.length+' fichier(s) sélectionné(s).','ok')});$('mediaFiles').onchange=e=>{mediaSelection=[...e.target.files];msg('mediaMsg',mediaSelection.length+' fichier(s) sélectionné(s).','ok')};$('uploadMediaBtn').onclick=async()=>{if(!mediaSelection.length)return msg('mediaMsg','Sélectionne des fichiers.','error');msg('mediaMsg','Téléversement…');try{for(const f of mediaSelection)await upload(f);mediaSelection=[];msg('mediaMsg','Médias téléversés.','ok');loadMedia()}catch(x){msg('mediaMsg',x.message,'error')}};$('refreshMediaBtn').onclick=loadMedia;
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');['productsPanel','contentPanel','legalPanel','mediaPanel','ordersPanel'].forEach(id=>$(id).classList.toggle('hidden',id!==b.dataset.tab));if(b.dataset.tab==='mediaPanel')loadMedia();if(b.dataset.tab==='ordersPanel')loadOrders()});$('loginForm').onsubmit=async e=>{e.preventDefault();const r=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(r.error)msg('loginMsg',r.error.message,'error')};$('logout').onclick=()=>sb.auth.signOut();$('resetPassword').onclick=async()=>{const email=$('email').value.trim();if(!email)return msg('loginMsg','Entre ton e-mail.','error');const r=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.href});msg('loginMsg',r.error?r.error.message:'E-mail envoyé.',r.error?'error':'ok')};async function init(){if(!configured){$('loginView').innerHTML='<div class="card"><h2>Configuration requise</h2><p>Complète config.js.</p></div>';return}sb=supabase.createClient(WAOULA_CONFIG.supabaseUrl,WAOULA_CONFIG.supabaseAnonKey);sb.auth.onAuthStateChange(async(_,s)=>{const ok=!!s;$('loginView').classList.toggle('hidden',ok);$('appView').classList.toggle('hidden',!ok);if(ok){$('userStatus').textContent=s.user.email;await Promise.all([loadProducts(),loadSettings()])}});await sb.auth.getSession();if(!currentVariants.length)resetProduct()}init();
+
+async function loadOrders(){
+ const body=document.querySelector('#ordersTable tbody');if(!body)return;
+ const box=document.getElementById('ordersMsg');box.textContent='Chargement…';
+ const {data,error}=await sb.from('orders').select('*').order('created_at',{ascending:false}).limit(100);
+ if(error){box.textContent='Erreur : '+error.message;return}
+ box.textContent=data.length?data.length+' commande(s)':'Aucune commande.';
+ body.innerHTML=data.map(o=>`<tr><td style="padding:10px;border-bottom:1px solid #eee">${new Date(o.created_at).toLocaleString('fr-FR')}</td><td style="padding:10px;border-bottom:1px solid #eee">${o.order_number||o.id}</td><td style="padding:10px;border-bottom:1px solid #eee">${o.customer_email||'—'}</td><td style="padding:10px;border-bottom:1px solid #eee">${(Number(o.amount_total||0)/100).toFixed(2).replace('.',',')} €</td><td style="padding:10px;border-bottom:1px solid #eee">${o.payment_status||o.status||'pending'}</td></tr>`).join('');
+}
+const refreshOrders=document.getElementById('refreshOrders');if(refreshOrders)refreshOrders.onclick=loadOrders;
+document.querySelector('[data-tab="ordersPanel"]')?.addEventListener('click',loadOrders);
+</script></body></html>
