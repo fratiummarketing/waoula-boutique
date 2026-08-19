@@ -55,7 +55,41 @@ body{background:#f5f4f1;letter-spacing:.01em}
 
 /* Titre boutique ajouté entre le hero et les produits */
 .boutique-title{font-size:clamp(24px,3vw,42px);font-weight:900;letter-spacing:.22em;text-align:center;margin:0 0 46px;text-transform:uppercase;color:#111}
-@media(max-width:560px){.boutique-title{font-size:24px;margin-bottom:28px;letter-spacing:.16em}}
+@media(max-width:560px){.boutique-title{font-size:24px;margin-bottom:28px;letter-spacing:.16em}}/* =========================================================
+   WAOULA — CORRECTION HERO MOBILE
+   Affiche entièrement l'image/vidéo d'accueil sur téléphone
+   sans zoom ni découpage
+   ========================================================= */
+
+@media (max-width: 560px) {
+
+  .hero {
+    height: 88svh;
+    min-height: 610px;
+    background: #000;
+    overflow: hidden;
+  }
+
+  .hero-video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    background-color: #000 !important;
+  }
+
+  .hero-content {
+    padding: 0 24px 60px !important;
+  }
+
+  .hero h1 {
+    font-size: 50px;
+  }
+
+  .hero p {
+    font-size: 13px;
+  }
+}
 </style>
 
 </head>
