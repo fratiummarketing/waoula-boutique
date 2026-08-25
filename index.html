@@ -115,9 +115,26 @@ body{background:#f5f4f1;letter-spacing:.01em}
   <a class="brand" href="#accueil"><img src="assets/image-01-4a41f4b82c0f.jpg" onerror="waoulaMediaFallback(this)" alt="WAOULA"><span>WAOULA</span></a>
   <nav><a href="#accueil">Accueil</a><a href="#boutique">Boutique</a><a href="#apropos">À propos</a><a href="#contact">Contact</a></nav>
   <button class="cart-btn" id="cartBtn" type="button">Panier <span id="cartCount">0</span></button>
-</header>
-<main>
-<section class="hero" id="accueil">
+/* CORRECTION HERO ORDINATEUR / TABLETTE */
+@media (min-width: 561px) and (max-width: 1100px) {
+
+  .hero-content {
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+    max-width: 680px !important;
+  }
+
+  .hero h1 {
+    font-size: 64px !important;
+    line-height: 0.90 !important;
+    max-width: 650px !important;
+    letter-spacing: -2px !important;
+  }
+
+  .hero p {
+    max-width: 520px !important;
+  }
+}
  <video
   class="hero-video"
   id="cmsHeroVideo"
