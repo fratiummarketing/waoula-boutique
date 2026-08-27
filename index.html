@@ -139,18 +139,25 @@ body{background:#f5f4f1;letter-spacing:.01em}
   }
 
   .hero-video {
-    position: absolute !important;
-    width: 115% !important;
-    height: 115% !important;
-    max-width: none !important;
-    max-height: none !important;
-    object-fit: contain !important;
-    object-position: center center !important;
-    left: 50% !important;
-    top: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    background-color: #000 !important;
-  }
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+
+  object-fit: contain !important;
+  object-position: center center !important;
+
+  background-size: contain !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+
+  left: 0 !important;
+  top: 0 !important;
+  transform: none !important;
+
+  background-color: #000 !important;
+}
 
   .hero-content {
     padding-left: 5vw !important;
