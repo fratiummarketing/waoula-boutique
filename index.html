@@ -129,7 +129,7 @@ body{background:#f5f4f1;letter-spacing:.01em}
     max-width: 520px !important;
   }
 }
-/* ===== CORRECTION HERO ORDINATEUR ===== */
+/* ===== HERO ORDINATEUR ===== */
 @media (min-width: 1101px) {
 
   .hero {
@@ -138,25 +138,18 @@ body{background:#f5f4f1;letter-spacing:.01em}
     overflow: hidden !important;
   }
 
-.hero-video {
-  position: absolute !important;
-  width: 115% !important;
-  height: 115% !important;
-  max-width: none !important;
-  max-height: none !important;
-
-  object-fit: contain !important;
-  object-position: center center !important;
-
-  background-size: contain !important;
-  background-position: center center !important;
-  background-repeat: no-repeat !important;
-
-  left: 50% !important;
-  top: 50% !important;
-  transform: translate(-50%, -50%) scale(1.15) !important;
-}
-}
+  .hero-video {
+    position: absolute !important;
+    width: 115% !important;
+    height: 115% !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    background-color: #000 !important;
   }
 
   .hero-content {
@@ -164,38 +157,33 @@ body{background:#f5f4f1;letter-spacing:.01em}
     padding-bottom: 7vh !important;
     max-width: 720px !important;
   }
-.hero h1 {
-  font-size: 30px !important;
-  line-height: 0.92 !important;
-  max-width: 88vw !important;
-  letter-spacing: -0.5px !important;
-}
-  }
 
- .hero p {
-  font-size: 12px !important;
-  line-height: 1.45 !important;
-  max-width: 86vw !important;
-  margin-bottom: 18px !important;
-}
-  }
-/* ===== TITRE ORDINATEUR UNIQUEMENT ===== */
-@media (min-width: 1101px) {
   .hero h1 {
     font-size: clamp(65px, 6vw, 105px) !important;
     line-height: 0.90 !important;
     max-width: 700px !important;
     letter-spacing: -0.045em !important;
   }
+
+  .hero p {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+    max-width: 520px !important;
+  }
 }
 
 /* ===== TITRE TELEPHONE UNIQUEMENT ===== */
 @media (max-width: 560px) {
+
   .hero h1 {
     font-size: 30px !important;
     line-height: 0.92 !important;
     max-width: 88vw !important;
     letter-spacing: -0.5px !important;
+  }
+
+  .hero p {
+    font-size: 13px !important;
   }
 }
 </style>
