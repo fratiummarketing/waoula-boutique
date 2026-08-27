@@ -179,6 +179,24 @@ body{background:#f5f4f1;letter-spacing:.01em}
   margin-bottom: 18px !important;
 }
   }
+/* ===== TITRE ORDINATEUR UNIQUEMENT ===== */
+@media (min-width: 1101px) {
+  .hero h1 {
+    font-size: clamp(65px, 6vw, 105px) !important;
+    line-height: 0.90 !important;
+    max-width: 700px !important;
+    letter-spacing: -0.045em !important;
+  }
+}
+
+/* ===== TITRE TELEPHONE UNIQUEMENT ===== */
+@media (max-width: 560px) {
+  .hero h1 {
+    font-size: 30px !important;
+    line-height: 0.92 !important;
+    max-width: 88vw !important;
+    letter-spacing: -0.5px !important;
+  }
 }
 </style>
 
