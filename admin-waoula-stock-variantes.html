@@ -270,17 +270,70 @@ async function openOrderDetails(orderId){
  const status=$('orderShippingStatus');if(status){const cur=String(o.shipping_status||'a_preparer').toLowerCase();status.value=['expediee','expedie','shipped'].includes(cur)?'expediee':['livree','delivered'].includes(cur)?'livree':'a_preparer'}
  $('saveOrderShipping').onclick=()=>saveOrderShipping(orderId);
 }
-async function saveOrderShipping(orderId){
- const status=$('orderShippingStatus').value,tracking=$('orderTracking').value.trim(),info=$('shippingSaveMsg');info.textContent='Enregistrement…';
- let payload={shipping_status:status,updated_at:new Date().toISOString(),tracking_number:tracking||null};
- let r=await sb.from('orders').update(payload).eq('id',orderId);
- if(r.error&&/tracking_number/i.test(r.error.message||'')){
-   payload={shipping_status:status,updated_at:new Date().toISOString()};
-   r=await sb.from('orders').update(payload).eq('id',orderId);
-   if(!r.error){info.textContent='Statut enregistré. Ajoute la colonne tracking_number avec le fichier SQL fourni pour sauvegarder aussi le suivi.';await loadOrders();return}
- }
- if(r.error){info.textContent='Erreur : '+r.error.message;return}
- info.textContent='Livraison enregistrée.';const o=orderCache.get(String(orderId));if(o){o.shipping_status=status;o.tracking_number=tracking||null}await loadOrders();
+async function saveOrderShipping(orderId) {
+  const status = $('orderShippingStatus').value;
+  const tracking = $('orderTracking').value.trim();
+  const info = $('shippingSaveMsg');
+
+  info.textContent = 'Enregistrement…';
+
+  let payload = {
+    shipping_status: status,
+    updated_at: new Date().toISOString(),
+    tracking_number: tracking || null
+  };
+
+  let r = await sb
+    .from('orders')
+    .update(payload)
+    .eq('id', orderId);
+
+  if (r.error) {
+    info.textContent = 'Erreur : ' + r.error.message;
+    return;
+  }
+
+  const o = orderCache.get(String(orderId));
+
+  if (o) {
+    o.shipping_status = status;
+    o.tracking_number = tracking || null;
+  }
+
+  if (status === 'expediee') {
+    info.textContent = 'Livraison enregistrée. Envoi de l’e-mail…';
+
+    const { data, error } = await sb.functions.invoke(
+      'send-shipping-email',
+      {
+        body: {
+          order_id: orderId
+        }
+      }
+    );
+
+    if (error) {
+      info.textContent =
+        'Livraison enregistrée, mais erreur e-mail : ' +
+        error.message;
+
+      await loadOrders();
+      return;
+    }
+
+    if (data?.already_sent) {
+      info.textContent =
+        'Livraison enregistrée. L’e-mail avait déjà été envoyé.';
+    } else {
+      info.textContent =
+        'Livraison enregistrée et e-mail envoyé au client ✅';
+    }
+  } else {
+    info.textContent = 'Livraison enregistrée.';
+  }
+
+  await loadOrders();
+}
 }
 $('closeOrderModal').onclick=()=>{$('orderModal').classList.remove('open');$('orderModal').setAttribute('aria-hidden','true')};
 $('orderModal').addEventListener('click',e=>{if(e.target.id==='orderModal')$('closeOrderModal').click()});
