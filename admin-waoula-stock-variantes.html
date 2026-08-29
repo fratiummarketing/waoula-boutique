@@ -5,7 +5,7 @@
 
 .order-badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800;text-transform:uppercase}.order-badge.paid{background:#dcfce7;color:#166534}.order-badge.unpaid{background:#fee2e2;color:#991b1b}.order-badge.pending{background:#fef3c7;color:#92400e}.order-badge.shipped{background:#dbeafe;color:#1d4ed8}.order-modal{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}.order-modal.open{display:flex}.order-modal-card{background:#fff;width:min(980px,100%);max-height:92vh;overflow:auto;border:1px solid #ddd;box-shadow:0 25px 80px rgba(0,0,0,.25)}.order-modal-head{position:sticky;top:0;background:#fff;border-bottom:1px solid #ddd;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:2}.order-modal-head h3{margin:0}.order-modal-body{padding:20px}.order-detail-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.order-detail-box{border:1px solid #e5e7eb;background:#fafafa;padding:12px}.order-detail-box strong{display:block;font-size:11px;text-transform:uppercase;color:#6b7280;margin-bottom:5px}.order-items-table{width:100%;border-collapse:collapse;margin-top:18px}.order-items-table th,.order-items-table td{padding:10px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}.order-items-table th{font-size:11px;text-transform:uppercase;color:#6b7280}.order-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.tracking-row{display:grid;grid-template-columns:1fr 220px;gap:10px;margin-top:14px}.tracking-row input,.tracking-row select{width:100%;padding:10px;border:1px solid #bbb}.order-total-line{display:flex;justify-content:space-between;gap:20px;padding:8px 0}.order-total-line.grand{font-size:18px;font-weight:900;border-top:1px solid #ddd;margin-top:6px;padding-top:12px}@media(max-width:800px){.order-detail-grid{grid-template-columns:1fr}.tracking-row{grid-template-columns:1fr}.order-items-table{font-size:12px}}
 </style></head><body>
-<section id="loginView" class="login"><div class="card"><h2>Administration WAOULA</h2><div id="loginMsg"></div><form id="loginForm"><div class="field"><label>E-mail</label><input id="email" type="email" required></div><div class="field"><label>Mot de passe</label><input id="password" type="password" required></div><div class="toolbar"><button class="btn primary">Se connecter</button><button id="resetPassword" class="btn secondary" type="button">Mot de passe oublié</button></div></form></div></section>
+<section id="loginView" class="login"><div class="card"><h2>Administration WAOULA</h2><div id="loginMsg"></div><form id="loginForm"><div class="field"><label>E-mail</label><input id="email" type="email" required></div><div class="field"><label>Mot de passe</label><input id="password" type="password" required></div><div class="toolbar"><button class="btn primary">Se connecter</button><button id="resetPassword" class="btn secondary" type="button">Mot de passe oublié</button></div></form><form id="newPasswordForm" class="hidden" style="margin-top:16px"><div class="field"><label>Nouveau mot de passe</label><input id="newPassword" type="password" minlength="8" required autocomplete="new-password"></div><div class="field"><label>Confirmer le nouveau mot de passe</label><input id="newPasswordConfirm" type="password" minlength="8" required autocomplete="new-password"></div><div class="toolbar"><button class="btn primary" type="submit">Enregistrer le nouveau mot de passe</button></div></form></div></section>
 <section id="appView" class="hidden"><header class="top"><div><h1>WAOULA · CMS V9</h1><div id="userStatus" class="status"></div></div><div class="toolbar"><a class="btn secondary" href="./" target="_blank">Voir la boutique</a><button id="logout" class="btn">Déconnexion</button></div></header>
 <div class="tabs"><button class="btn tab active" data-tab="productsPanel">Produits</button><button class="btn tab" data-tab="contentPanel">Site & apparence</button><button class="btn tab" data-tab="legalPanel">Pages légales</button><button class="btn tab" data-tab="mediaPanel">Médias</button><button class="btn tab" data-tab="ordersPanel">Commandes</button></div>
 <section id="productsPanel" class="panel"><div class="grid"><aside class="card"><h3 class="section-title">Catalogue</h3><div class="toolbar"><button id="newBtn" class="btn primary">+ Nouveau</button><button id="refreshBtn" class="btn secondary">Actualiser</button><button id="importDefaultsBtn" class="btn secondary">Importer les 4 produits</button><button id="deleteAllBtn" class="btn danger">Supprimer tous</button></div><div id="productList" class="list"></div></aside><main class="card"><h3 id="formTitle" class="section-title">Ajouter un produit</h3><div id="formMsg"></div><form id="productForm" class="formgrid"><input id="productId" type="hidden"><div class="field"><label>Nom</label><input id="name" required></div><div class="field"><label>Catégorie</label><input id="category"></div><div class="field"><label>SKU</label><input id="sku"></div><div class="field"><label>Stock total (calculé)</label><input id="stock" type="number" min="0" value="0" readonly><p class="note">Somme automatique de tous les stocks par variante.</p></div><div class="field"><label>Prix normal (€)</label><input id="price" type="number" step=".01" min="0" required></div><div class="field"><label>Prix promo (€)</label><input id="salePrice" type="number" step=".01" min="0"></div><div class="field wide"><label>Description</label><textarea id="description"></textarea></div><div class="field"><label>Tailles (calculées)</label><input id="sizes" readonly placeholder="S, M, L, XL"></div><div class="field"><label>Couleurs (calculées)</label><input id="colors" readonly placeholder="Noir, Blanc"></div><div class="field wide"><label>Stock par taille / couleur</label><div class="variant-box"><div class="variant-head"><span>Taille</span><span>Couleur</span><span>Stock</span><span>SKU</span><span>Active</span><span>Action</span></div><div id="variantRows"></div><div id="variantSummary" class="variant-summary"></div><button id="addVariantBtn" class="btn secondary" type="button">+ Ajouter une variante</button></div><p class="note">Exemple : S / Noir / 15. À 0, la variante reste visible dans l’administration mais sera affichée « Rupture de stock » sur la boutique. Décoche « Active » pour la retirer volontairement de la vente.</p><textarea id="variants" class="hidden"></textarea></div><div class="field"><label>Ordre</label><input id="position" type="number" value="0"></div><div class="field"><label><input id="active" type="checkbox" checked> Visible</label><label><input id="featured" type="checkbox"> Vedette</label></div><div class="field wide"><label>Image principale</label><input id="mainImage" type="file" accept="image/*"><input id="existingImage" type="hidden"><img id="preview" class="preview hidden"><label style="margin-top:8px"><input id="removeMainImage" type="checkbox"> Retirer l’image principale</label></div><div class="field wide"><label>Galerie (sélection multiple)</label><input id="galleryImages" type="file" accept="image/*" multiple><div id="galleryPreview" class="gallery-preview"></div></div><div class="wide toolbar"><button class="btn primary">Enregistrer</button><button id="resetBtn" class="btn secondary" type="button">Vider</button><button id="deleteBtn" class="btn danger hidden" type="button">Supprimer</button></div></form></main></div></section>
@@ -202,7 +202,76 @@ $('settingsForm').onsubmit=async e=>{e.preventDefault();msg('settingsMsg','Enreg
 const legalDefs=[['mentions','Mentions légales','legal_mentions'],['cgv','Conditions générales de vente','legal_cgv'],['privacy','Politique de confidentialité','legal_privacy'],['shipping','Livraison et retours','legal_shipping']];function editorBlock(key,title){return `<div class="field"><label>${title}</label><div class="rich-toolbar" data-for="${key}"><button type="button" data-cmd="bold"><b>B</b></button><button type="button" data-cmd="italic"><i>I</i></button><button type="button" data-cmd="formatBlock" data-value="h2">H2</button><button type="button" data-cmd="insertUnorderedList">• Liste</button><button type="button" data-link="1">Lien</button><button type="button" data-cmd="removeFormat">Nettoyer</button></div><div id="editor-${key}" class="rich-editor" contenteditable="true"></div></div>`}$('legalEditors').innerHTML=legalDefs.map(x=>editorBlock(x[0],x[1])).join('');document.querySelectorAll('.rich-toolbar button').forEach(b=>b.onclick=()=>{const ed=$('editor-'+b.closest('.rich-toolbar').dataset.for);ed.focus();if(b.dataset.link){const u=prompt('Adresse du lien :');if(u)document.execCommand('createLink',false,u)}else document.execCommand(b.dataset.cmd,false,b.dataset.value||null)});function loadLegalEditors(){legalDefs.forEach(([k,,col])=>$('editor-'+k).innerHTML=settings[col]||'')}$('legalForm').onsubmit=async e=>{e.preventDefault();const row={id:1,updated_at:new Date().toISOString()};legalDefs.forEach(([k,,col])=>row[col]=$('editor-'+k).innerHTML);const r=await sb.from('site_settings').upsert(row);msg('legalMsg',r.error?r.error.message:'Pages légales enregistrées.',r.error?'error':'ok');if(!r.error)settings={...settings,...row}};
 async function loadMedia(){const r=await sb.storage.from('site-assets').list('',{limit:200,sortBy:{column:'created_at',order:'desc'}});if(r.error)return msg('mediaMsg',r.error.message,'error');const files=(r.data||[]).filter(x=>x.name!=='.emptyFolderPlaceholder');$('mediaGrid').innerHTML=files.map(f=>{const u=sb.storage.from('site-assets').getPublicUrl(f.name).data.publicUrl;const isVideo=/\.(mp4|webm)$/i.test(f.name);return `<div class="media-card">${isVideo?`<video src="${u}" muted controls></video>`:`<img src="${u}">`}<div class="name" title="${f.name}">${f.name}</div><div class="media-actions"><button class="btn secondary" data-copy="${u}">Copier URL</button><button class="btn danger" data-media-delete="${f.name}">Supprimer</button></div></div>`}).join('')||'<p class="note">Aucun média dans Supabase Storage.</p>';document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{await navigator.clipboard.writeText(b.dataset.copy);msg('mediaMsg','URL copiée.','ok')});document.querySelectorAll('[data-media-delete]').forEach(b=>b.onclick=async()=>{if(!confirm('Supprimer ce média du stockage ?'))return;const x=await sb.storage.from('site-assets').remove([b.dataset.mediaDelete]);if(x.error)msg('mediaMsg',x.error.message,'error');else loadMedia()})}
 const dz=$('dropZone');dz.onclick=()=>$('mediaFiles').click();['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('drag')}));['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('drag')}));dz.addEventListener('drop',e=>{mediaSelection=[...e.dataTransfer.files];msg('mediaMsg',mediaSelection.length+' fichier(s) sélectionné(s).','ok')});$('mediaFiles').onchange=e=>{mediaSelection=[...e.target.files];msg('mediaMsg',mediaSelection.length+' fichier(s) sélectionné(s).','ok')};$('uploadMediaBtn').onclick=async()=>{if(!mediaSelection.length)return msg('mediaMsg','Sélectionne des fichiers.','error');msg('mediaMsg','Téléversement…');try{for(const f of mediaSelection)await upload(f);mediaSelection=[];msg('mediaMsg','Médias téléversés.','ok');loadMedia()}catch(x){msg('mediaMsg',x.message,'error')}};$('refreshMediaBtn').onclick=loadMedia;
-document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');['productsPanel','contentPanel','legalPanel','mediaPanel','ordersPanel'].forEach(id=>$(id).classList.toggle('hidden',id!==b.dataset.tab));if(b.dataset.tab==='mediaPanel')loadMedia();if(b.dataset.tab==='ordersPanel')loadOrders()});$('loginForm').onsubmit=async e=>{e.preventDefault();const r=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(r.error)msg('loginMsg',r.error.message,'error')};$('logout').onclick=()=>sb.auth.signOut();$('resetPassword').onclick=async()=>{const email=$('email').value.trim();if(!email)return msg('loginMsg','Entre ton e-mail.','error');const r=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.href});msg('loginMsg',r.error?r.error.message:'E-mail envoyé.',r.error?'error':'ok')};async function init(){if(!configured){$('loginView').innerHTML='<div class="card"><h2>Configuration requise</h2><p>Complète config.js.</p></div>';return}sb=supabase.createClient(WAOULA_CONFIG.supabaseUrl,WAOULA_CONFIG.supabaseAnonKey);sb.auth.onAuthStateChange(async(_,s)=>{const ok=!!s;$('loginView').classList.toggle('hidden',ok);$('appView').classList.toggle('hidden',!ok);if(ok){$('userStatus').textContent=s.user.email;await Promise.all([loadProducts(),loadSettings()])}});await sb.auth.getSession();if(!currentVariants.length)resetProduct()}init();
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');['productsPanel','contentPanel','legalPanel','mediaPanel','ordersPanel'].forEach(id=>$(id).classList.toggle('hidden',id!==b.dataset.tab));if(b.dataset.tab==='mediaPanel')loadMedia();if(b.dataset.tab==='ordersPanel')loadOrders()});
+
+$('loginForm').onsubmit=async e=>{
+  e.preventDefault();
+  msg('loginMsg','Connexion…');
+  const r=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
+  msg('loginMsg',r.error?r.error.message:'',r.error?'error':'');
+};
+
+$('logout').onclick=async()=>{
+  await sb.auth.signOut();
+  $('newPasswordForm').classList.add('hidden');
+  $('loginForm').classList.remove('hidden');
+  msg('loginMsg','');
+};
+
+$('resetPassword').onclick=async()=>{
+  const email=$('email').value.trim();
+  if(!email)return msg('loginMsg','Entre ton e-mail.','error');
+  msg('loginMsg','Envoi de l’e-mail…');
+  const redirectTo=new URL(location.pathname,location.origin).href;
+  const r=await sb.auth.resetPasswordForEmail(email,{redirectTo});
+  msg('loginMsg',r.error?r.error.message:'E-mail de réinitialisation envoyé. Vérifie aussi les spams.',r.error?'error':'ok');
+};
+
+$('newPasswordForm').onsubmit=async e=>{
+  e.preventDefault();
+  const p1=$('newPassword').value;
+  const p2=$('newPasswordConfirm').value;
+  if(p1.length<8)return msg('loginMsg','Le mot de passe doit contenir au moins 8 caractères.','error');
+  if(p1!==p2)return msg('loginMsg','Les deux mots de passe ne correspondent pas.','error');
+  msg('loginMsg','Mise à jour du mot de passe…');
+  const r=await sb.auth.updateUser({password:p1});
+  if(r.error)return msg('loginMsg',r.error.message,'error');
+  $('newPasswordForm').reset();
+  $('newPasswordForm').classList.add('hidden');
+  $('loginForm').classList.add('hidden');
+  msg('loginMsg','Mot de passe modifié avec succès.','ok');
+};
+
+async function init(){
+  if(!configured){
+    $('loginView').innerHTML='<div class="card"><h2>Configuration requise</h2><p>Complète config.js.</p></div>';
+    return;
+  }
+  sb=supabase.createClient(WAOULA_CONFIG.supabaseUrl,WAOULA_CONFIG.supabaseAnonKey);
+  sb.auth.onAuthStateChange(async(event,s)=>{
+    if(event==='PASSWORD_RECOVERY'){
+      $('loginView').classList.remove('hidden');
+      $('appView').classList.add('hidden');
+      $('loginForm').classList.add('hidden');
+      $('newPasswordForm').classList.remove('hidden');
+      msg('loginMsg','Choisis maintenant ton nouveau mot de passe.','ok');
+      return;
+    }
+    const ok=!!s;
+    $('loginView').classList.toggle('hidden',ok);
+    $('appView').classList.toggle('hidden',!ok);
+    if(ok){
+      $('userStatus').textContent=s.user.email;
+      await Promise.all([loadProducts(),loadSettings()]);
+    }else{
+      $('loginForm').classList.remove('hidden');
+      $('newPasswordForm').classList.add('hidden');
+    }
+  });
+  await sb.auth.getSession();
+  if(!currentVariants.length)resetProduct();
+}
+init();
 
 const orderCache=new Map();
 const money=cents=>(Number(cents||0)/100).toFixed(2).replace('.',',')+' €';
@@ -333,7 +402,6 @@ async function saveOrderShipping(orderId) {
   }
 
   await loadOrders();
-}
 }
 $('closeOrderModal').onclick=()=>{$('orderModal').classList.remove('open');$('orderModal').setAttribute('aria-hidden','true')};
 $('orderModal').addEventListener('click',e=>{if(e.target.id==='orderModal')$('closeOrderModal').click()});
